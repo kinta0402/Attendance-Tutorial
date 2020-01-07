@@ -9,9 +9,24 @@
                                'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application',
                                'data-turbolinks-track': 'reload' %>
+  <%= render 'layouts/shim' %>
   </head>
-
   <body>
-    <%= yield %>
+    <!--<header class="navbar navbar-fixed-top navbar-inverse">-->
+    <!--  <div class="container">-->
+    <!--    <#%= link_to "Attendance App", '#', id: "logo" %>-->
+    <!--    <nav>-->
+    <!--      <ul class="nav navbar-nav navbar-right">-->
+    <!--        <li><#%= link_to "Top",   '#' %></li>-->
+    <!--        <li><#%= link_to "Log in", '#' %></li>-->
+    <!--      </ul>-->
+    <!--    </nav>-->
+    <!--  </div>-->
+    <!--</header>-->
+    <!-- 上のheaderの内容が下のこの1行で収まる(パーシャル化している) -->
+    <%= render 'layouts/header' %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
