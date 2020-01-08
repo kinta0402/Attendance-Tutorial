@@ -2,6 +2,9 @@ class User < ApplicationRecord  # Userクラスが定義されていること
                                 # UserクラスはApplicationRecordクラスを継承していること
                                 # この継承の働きによりActive Recordのメソッドが使えると
   
+  before_save { self.email = email.downcase } # メールの大文字部分を自動で小文字にするﾒｿｯﾄﾞ
+# before_save ﾒｿｯﾄﾞ = オブジェクトが保存される時点で処理を実行
+  
   validates :name, presence: true, length: { maximum: 50 }
 # presence: trueという引数は1つのハッシュとして考えます 👈少し意味ぷー 4.4より
 # 👆 validates(:name, presence: true) と同意 4.4より
