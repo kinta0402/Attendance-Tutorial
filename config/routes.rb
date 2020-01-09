@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   # root urlのルーティングを下記に変更
   root 'static_pages#top'
   get '/signup', to: 'users#new'
+  resources :users
 
 end

@@ -27,6 +27,9 @@
     <%= render 'layouts/header' %>
     <div class="container">
       <%= yield %>
+      
+      <!--↓デバッグを表示する/if は開発環境【development】のみで表示-->
+      <%= debug(params) if Rails.env.development? %>
     </div>
   </body>
 </html>
