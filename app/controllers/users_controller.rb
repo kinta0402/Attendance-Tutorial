@@ -13,8 +13,11 @@ class UsersController < ApplicationController
     # @user = User.new(params[:user]) 現在のrailsのバージョンでは使用出来ない為下記のように記載
     # user_params は private に定義【strong parameters】を使用
     @user = User.new(user_params)
+    # @user = User.new(name: params[:name], email: params[:email], image: "default.png", password: params[:password] )
     if @user.save
-      # 保存に成功した場合は、ここに記述した処理が実行されます。
+      flash[:success] = "新規作成に成功しました。"
+      redirect_to @user
+      # redirect_to user_url(@user) 👆railsでは左記のコードのように実行したいことを判断してくれます
     else
       render :new
     end

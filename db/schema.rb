@@ -13,16 +13,11 @@
 ActiveRecord::Schema.define(version: 20200108084522) do
 
   create_table "users", force: :cascade do |t|
-    # interger :id ⇒ ブロック内に記述はないが、自動採番されるIDのカラムも生成されている
     t.string "name"
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
-    # 👆ここでは確認できないが、has_secure_password の働きで、ハッシュ化されたパスワードが入る
-    # User.newでコンソールで作成する場合は、カラム指定を下記のようにするが、そこで入力された値は、password_digest に暗号化されて入る！！(気づきにくい為、4.5参照)
-    # User.new(name: "test user", email: "sample@email.com", password: "password", password_confirmation: "password")
-    
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

@@ -26,6 +26,11 @@
     <!-- 上のheaderの内容が下のこの1行で収まる(パーシャル化している) -->
     <%= render 'layouts/header' %>
     <div class="container">
+      
+      <!--サクセスメッセージ等の表示【5.5.6】-->
+      <% flash.each do |message_type, msg| %>
+        <div class="alert alert-<%= message_type %>"><%= msg %></div>
+      <% end %>
       <%= yield %>
       
       <!--↓デバッグを表示する/if は開発環境【development】のみで表示-->
