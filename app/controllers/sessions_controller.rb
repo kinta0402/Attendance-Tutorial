@@ -15,7 +15,9 @@ class SessionsController < ApplicationController
     
       # ログイン後にユーザー情報ページにリダイレクトします。
     else
-      # ここにはエラーメッセージ用のflashを入れます。
+      flash.now[:danger] = '認証に失敗しました'
+        # flash変数のみだと、ﾘﾀﾞｲﾚｸﾄしていない為、ﾌﾗｯｼｭﾒｯｾｰｼﾞがずっと表示されてしまう。
+        # ⇒ それを防ぐ為、flash.now にしている (6.2.3 参照)
       render :new
     end
   end
