@@ -3,6 +3,8 @@ class SessionsController < ApplicationController
   def new
   end
 
+  # ログイン処理 (一見するとcreateアクションの為、ユーザー登録っぽいが、これはsession cntroller内！！) 
+  
   def create # 注) ここはsessionﾒｿｯﾄﾞではなく、sessionカラム(ハッシュのキー)!?
              #     ⇒ session[:user_id]  sessonメソッドではない
     user = User.find_by(email: params[:session][:email].downcase)
@@ -14,7 +16,7 @@ class SessionsController < ApplicationController
       # ⓶有効なユーザーオブジェクトが取得できたが、パスワードは間違っている場合の判定はfalse
       # ⓷有効なユーザーオブジェクトが取得でき、パスワードも一致した場合の判定はtrue
       
-      # ユーザー登録したと同時にログインする為
+      # ログイン出来れば、session変数(cookies)にuser_idを保存
       log_in user # session_helper にて定義 【sessionに保存されたuser_idを取得】(6.3.1参照)
         # log_in(user) ⇒ 上記は引数として指定する為の()を省略して記述
         # userオブジェクトのidをsession(cookie) に保存
