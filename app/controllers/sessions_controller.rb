@@ -3,7 +3,8 @@ class SessionsController < ApplicationController
   def new
   end
 
-  def create
+  def create # 注) ここはsessionﾒｿｯﾄﾞではなく、sessionカラム(ハッシュのキー)!?
+             #     ⇒ session[:user_id]  sessonメソッドではない
     user = User.find_by(email: params[:session][:email].downcase)
       # ネスト構造のハッシュの値を取得している【入力されたemailを取得】
       # ハッシュの中にハッシュがある↓
