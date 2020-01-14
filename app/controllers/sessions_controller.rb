@@ -11,6 +11,7 @@ class SessionsController < ApplicationController
       # ネスト構造のハッシュの値を取得している【入力されたemailを取得】
       # ハッシュの中にハッシュがある↓
       # { session: { email: "sample@email.com", password: "password" } }
+      # Userﾃｰﾌﾞﾙに、ログインで入力されたemailがあるか確認
     if user && user.authenticate(params[:session][:password]) # 6.2.2に記載されてる
       # ⓵ユーザーオブジェクトが見つからなかった場合、パスワードは何を入力しても判定はfalse
       # ⓶有効なユーザーオブジェクトが取得できたが、パスワードは間違っている場合の判定はfalse
