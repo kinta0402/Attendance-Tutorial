@@ -9,6 +9,15 @@ module SessionsHelper
                                  # 例) flash.now[:danger] = '認証に失敗しました'
   end
   
+  # セッションと@current_userを破棄します。
+  def log_out
+    session.delete(:user_id)   # session に保存されたid を削除
+  
+   # セッションからユーザーIDを削除しただけでは@current_userに代入されたユーザーオブジェクトは削除されない為、
+   # current_user の値もnil にする
+    @current_user = nil        
+  end
+  
   # 現在ログイン中のユーザーがいる場合オブジェクトを返します。
   # 現在ログインしているユーザーの値を取得
   def current_user
