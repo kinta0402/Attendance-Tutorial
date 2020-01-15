@@ -38,7 +38,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    log_out
+    # log_out 👈 最初はこのメソッドのみ 7.2 のバグを修正する為
+    
+    # ログイン中の場合のみログアウト処理を実行します。 
+    log_out if logged_in?
     flash[:success] = 'ログアウトしました。'
     redirect_to root_url
   end

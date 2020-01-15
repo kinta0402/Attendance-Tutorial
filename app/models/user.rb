@@ -51,6 +51,16 @@ class User < ApplicationRecord  # Userクラスが定義されていること
   
     # トークンがダイジェストと一致すればtrueを返します。
   def authenticated?(remember_token)
+    # ダイジェストが存在しない場合はfalseを返して終了します。 7.2
+    return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+  
+    # ユーザーのログイン情報を破棄します。7.1.4
+    # (remember_me機能により、ログイン状態の永続的保持は出来たが、その影響により、ログアウトが出来なくなっていた。
+    #   それを防ぐ為、cookiesを削除する)
+    # ⇒方法としては、:remember_digestをnilにする！！
+  def forget
+    update_attribute(:remember_digest, nil)
   end
 end
