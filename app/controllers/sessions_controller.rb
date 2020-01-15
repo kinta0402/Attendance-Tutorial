@@ -22,9 +22,8 @@ class SessionsController < ApplicationController
         # log_in(user) ⇒ 上記は引数として指定する為の()を省略して記述
         # userオブジェクトのidをsession(cookie) に保存
         
-      remember user # 7.1.3 (userモデルにて定義したメソッドをsession_controllerで使用している)
-                    # 名前が異なるモデルで定義したメソッドは、その配下の異なる名前のcontrollerで使えるのか？
-                    # 例) Userモデルで定義したメソッドを、session_controller で使用(今回の場合) 7.1.3 より
+      # remember_me ﾁｪｯｸﾎﾞｯｸｽがオン時とオフ時の処理 三項演算子を使用 ⇒ 7.3 参照
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       
       redirect_to user
         # 引数のuser の()を省略
