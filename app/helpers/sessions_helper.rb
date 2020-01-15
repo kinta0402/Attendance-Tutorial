@@ -9,6 +9,13 @@ module SessionsHelper
                                  # 例) flash.now[:danger] = '認証に失敗しました'
   end
   
+  # 永続的セッションを記憶します（Userモデルを参照）# 7.1.3
+  def remember(user)
+    user.remember
+    cookies.permanent.signed[:user_id] = user.id
+    cookies.permanent[:remember_token] = user.remember_token
+  end
+  
   # セッションと@current_userを破棄します。
   def log_out
     session.delete(:user_id)   # session に保存されたid を削除
@@ -17,20 +24,35 @@ module SessionsHelper
    # current_user の値もnil にする
     @current_user = nil        
   end
-  
+
+
   # 現在ログイン中のユーザーがいる場合オブジェクトを返します..
   # 現在ログインしているユーザーの値を取得
   def current_user
-    # if session[:user_id]
+    # if session[:user_id]    ※１回目
     #   if @current_user.nil?
     #     @current_user = User.find_by(id: session[:user_id])
     #   else
     #     @current_user
     # end
     
-    # 👆の省略形 👇
-    if session[:user_id]
-      @current_user ||= User.find_by(id: session[:user_id])  # この式はややこしい 6.3.2に記載
+    # 👆の省略形 👇   ※ 2回目
+    # if session[:user_id]
+    #   @current_user ||= User.find_by(id: session[:user_id])  # この式はややこしい 6.3.2に記載
+    # end
+    
+    # 👆remember 計追加(理解しなくてOK)👇 ※ ３回目
+    
+    # 一時的セッションにいるユーザーを返します。
+    # それ以外の場合はcookiesに対応するユーザーを返します。
+    if (user_id = session[:user_id])
+      @current_user ||= User.find_by(id: user_id)
+    elsif (user_id = cookies.signed[:user_id])
+      user = User.find_by(id: user_id)
+      if user && user.authenticated?(cookies[:remember_token])
+        log_in user
+        @current_user = user
+      end
     end
   end
   
