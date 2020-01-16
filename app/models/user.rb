@@ -22,7 +22,9 @@ class User < ApplicationRecord  # Userクラスが定義されていること
                     uniqueness: true
   
   has_secure_password  # パスワードをハッシュ化する為のﾒｿｯﾄﾞ ややこしい 4.5参照 
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  # allow_nil: true ⇒ ユーザー編集の際、パスワードが空白でも更新できるようにする！！8.1.4
+  # ユーザー新規作成の場合は、has_secure_password が存在性を検証する為OK！！
   
   
     #👇remember_me 機能を実装する為に追加 詳細7.1.1
