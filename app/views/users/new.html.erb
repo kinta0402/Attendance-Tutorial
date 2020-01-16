@@ -1,35 +1,41 @@
 <% provide(:title, 'Sign up') %>
+<% provide(:class_text, 'signup') %>
+<!--↑ 8.1.1 参照(パーシャル化し、editと微妙に違うところを、yield に渡してる)-->
+<% provide(:button_text, '新規作成') %>
+<!--↑ 8.1.1 参照(パーシャル化し、editと微妙に違うところを、yield に渡してる)-->
 <h1>ユーザー登録</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+    <%= render 'form' %>
+    <!--👆edit画面とほぼ同じ為、パーシャル化-->
     
     <!--form_with ⇒ 5.5参照-->
-    <%= form_with(model: @user, local: true) do |f| %>
+<!--    <#%= form_with(model: @user, local: true) do |f| %>-->
 <!--<#%= form_tag users_path do %> 👆の前章【前章ではform_tagを使用】-->
 <!--前章では、createアクション(user_path)を指定していたが、-->
 <!--form_with はおそらく自動でuserリソースのPOSTリクエストに飛ばしてくれる‼(userﾘｿｰｽのpostはcreateのみ)-->
       
       <!--↓パーシャル化したエラーメッセージを表示している-->
-      <%= render 'shared/error_messages' %>
+<!--      <#%= render 'shared/error_messages' %>-->
       
-      <%= f.label :name, class: "label-signup" %>
-      <%= f.text_field :name, class: "form-control" %>
+<!--      <#%= f.label :name, class: "label-signup" %>-->
+<!--      <#%= f.text_field :name, class: "form-control" %>-->
       
 <!--  <input class="form-control" type="text" value="テスト太郎" name="user[name]"> 👆の検証 -->
 <!--  <input name ="name" value ="<#%= @user.name %>"> 👆の前章 【前章はform_tagを使用】-->
 
       
-      <%= f.label :email, class: "label-signup" %>
-      <%= f.email_field :email, class: "form-control" %>
+<!--      <#%= f.label :email, class: "label-signup" %>-->
+<!--      <#%= f.email_field :email, class: "form-control" %>-->
 
-      <%= f.label :password, class: "label-signup" %>
-      <%= f.password_field :password, class: "form-control" %>
+<!--      <#%= f.label :password, class: "label-signup" %>-->
+<!--      <#%= f.password_field :password, class: "form-control" %>-->
 
-      <%= f.label :password_confirmation, "Confirmation", class: "label-signup" %>
-      <%= f.password_field :password_confirmation, class: "form-control" %>
+<!--      <#%= f.label :password_confirmation, "Confirmation", class: "label-signup" %>-->
+<!--      <#%= f.password_field :password_confirmation, class: "form-control" %>-->
 
-      <%= f.submit "新規作成", class: "btn btn-primary btn-block btn-signup" %>
-    <% end %>
+<!--      <#%= f.submit "新規作成", class: "btn btn-primary btn-block btn-signup" %>-->
+<!--    <#% end %>-->
   </div>
 </div>
