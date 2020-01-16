@@ -53,6 +53,8 @@ class UsersController < ApplicationController
     def user_params # 5.5.3 参照
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
+
+
     
     # beforeフィルター
     
@@ -65,6 +67,9 @@ class UsersController < ApplicationController
     # ログイン済みのユーザーか確認します。
     def logged_in_user
       unless logged_in?
+        store_location   
+      # フレンドリーフォワーディング機能 8.3参照 ※ログインしないで、URL直打ちでeditページ等に
+      # リクエストした際、そのurlをsessionに保存 (session_helperに定義)
         flash[:danger] = "ログインしてください。"
         redirect_to login_url
       end
