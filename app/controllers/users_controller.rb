@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user, only: :destroy
   
   def index
     # @users = User.all  ページネーション機能追加の為下記に変更
@@ -92,5 +93,10 @@ class UsersController < ApplicationController
     # redirect_to(root_url) unless @user == current_user
     # 上記をより読み手に分かりやすくする為、session_helperにcurrent_user? を定義 8.2.2参照
       redirect_to(root_url) unless current_user?(@user) 
+    end
+    
+    # システム管理権限所有かどうか判定します。8.5.2
+    def admin_user
+      redirect_to root_url unless current_user.admin?
     end
 end
