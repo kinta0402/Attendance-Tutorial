@@ -8,12 +8,21 @@
       <tr>
         <th><%= User.human_attribute_name :name %></th>
         <!--👆これは何をしてるのか？説明なし 8.4-->
+        <th></th>
       </tr>
     </thead>
 
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.name, user %></td>
+        <td>
+          <% if current_user.admin? && !current_user?(user) %>
+          <!--👆!current_user?(user)の意味⇒管理者には削除ボタンを表示させないようにしている 8.5.2-->
+            <%= link_to "削除", user, method: :delete,
+                data: { confirm: "削除してよろしいですか？" },
+                class: "btn btn-danger" %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </table>
