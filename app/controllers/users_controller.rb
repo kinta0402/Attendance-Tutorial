@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
-  before_action :logged_in_user, only: [:show, :edit, :update]
+  before_action :logged_in_user, only: [:index, :show, :edit, :update]
   before_action :correct_user, only: [:edit, :update]
+  
+  def index
+    # @users = User.all  ページネーション機能追加の為下記に変更
+    @users = User.paginate(page: params[:page]) # 特殊なpaginateメソッド 8.4.2
+  end
   
   def show
     # @user = User.find(params[:id]) ⇒ 他のアクションでも実行している為、before_action :set_user にまとめた。
