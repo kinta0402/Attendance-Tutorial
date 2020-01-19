@@ -1,7 +1,9 @@
 <% if @user.errors.any? %> <!--@userに対し、エラーが発生しているか？参照 5.5.4-->
   <div id="error_explanation">
     <div class="alert alert-danger">
-      The form contains <%= pluralize(@user.errors.count, "error") %>.
+      <!--<#%= pluralize(@user.errors.count, "error") %>.-->
+      <!--エラーメッセージ日本語化の為、下記に変更 8.5-->
+      入力エラーが<%= @user.errors.count %>件ありました。
     </div>
     <ul>
     <% @user.errors.full_messages.each do |msg| %>
