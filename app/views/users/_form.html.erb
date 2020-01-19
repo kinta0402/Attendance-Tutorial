@@ -4,6 +4,9 @@
 <!--前章では、createアクション(user_path)を指定していたが、-->
 <!--form_with はおそらく自動でuserリソースのPOSTリクエストに飛ばしてくれる‼(userﾘｿｰｽのpostはcreateのみ)-->
 
+<!--👆new,editパーシャル化(@user = new ⇒ create , edit ⇒ update)に自動で飛ばす！？ -->
+
+
 <!--↓パーシャル化したエラーメッセージを表示している-->
   <%= render 'shared/error_messages', object: @user %>
 
@@ -15,6 +18,9 @@
 
   <%= f.label :email, class: "label-#{yield(:class_text)}" %>
   <%= f.email_field :email, class: "form-control" %>
+  
+  <%= f.label :department, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_field :department, class: "form-control" %>
 
   <%= f.label :password, class: "label-#{yield(:class_text)}" %>
   <%= f.password_field :password, class: "form-control" %>

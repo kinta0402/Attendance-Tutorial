@@ -20,6 +20,8 @@ class User < ApplicationRecord  # Userクラスが定義されていること
   validates :email, presence: true, length: { maximum: 100},
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true
+                    
+  validates :department, length: { in: 2..50 }, allow_blank: true
   
   has_secure_password  # パスワードをハッシュ化する為のﾒｿｯﾄﾞ ややこしい 4.5参照 
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
