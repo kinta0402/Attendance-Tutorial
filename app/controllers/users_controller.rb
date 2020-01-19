@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   private # 以下はstrong parameters !?
   
     def user_params # 5.5.3 参照
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :department, :password, :password_confirmation)
     end
 
 

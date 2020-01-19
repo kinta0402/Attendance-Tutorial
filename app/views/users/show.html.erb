@@ -10,8 +10,16 @@
     </tr>
 
     <tr>
-      <td>所属：<%= ifif @user.department.present? ? @user.department : "未所属" %></td>
+      <td>所属：<%= @user.department.present? ? @user.department : "未所属" %></td>
       <!--👆所属に値がなければ、未所属と表示 9.1.2 より この書き方説明無 -->
+      <!--上記のコードが分からなかった為、下記自分で考えた！！下記でも動作した！！-->
+      <!--<td>所属：-->
+      <!--  < % if @user.department? %>-->
+      <!--    < %= @user.department %>-->
+      <!--  < % else %>-->
+      <!--    < %= "未所属" %>-->
+      <!--  < % end %>-->
+      <!--</td>-->
       <td>名前：<%= @user.name %></td>
       <td>出勤日数</td>
       <td>月末日</td>
