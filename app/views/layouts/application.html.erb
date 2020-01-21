@@ -29,7 +29,8 @@
       
       <!--サクセスメッセージ等の表示【5.5.6】-->
       <% flash.each do |message_type, msg| %>
-        <div class="alert alert-<%= message_type %>"><%= msg %></div>
+        <!--<div class="alert alert-< %= message_type %>">< %= msg %></div> これが👇.html_sage 追加 9.3.2-->
+        <div class="alert alert-<%= message_type %>"><%= msg.html_safe %></div>
       <% end %>
       <%= yield %>
       

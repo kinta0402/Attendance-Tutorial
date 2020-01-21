@@ -68,14 +68,24 @@ class UsersController < ApplicationController
   end
 
   def update_basic_info
+    if @user.update_attributes(basic_info_params)
+      flash[:success] = "#{@user.name}の基本情報を更新しました。"
+    else
+      flash[:danger] = "#{@user.name}の更新は失敗しました。<br>" + @user.errors.full_messages.join("<br>")
+    end
+    redirect_to users_url
   end
   
-  private # 以下はstrong parameters !?
+  private # 以下はstrong parameters
   
     def user_params # 5.5.3 参照
       params.require(:user).permit(:name, :email, :department, :password, :password_confirmation)
     end
-
+    
+    # 基本情報
+    def basic_info_params # 9.3.2 ﾓｰﾀﾞﾙ表示
+      params.require(:user).permit(:department, :basic_time, :work_time)
+    end
 
     # beforeフィルター
     
