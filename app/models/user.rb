@@ -23,6 +23,10 @@ class User < ApplicationRecord  # Userクラスが定義されていること
                     
   validates :department, length: { in: 2..50 }, allow_blank: true
   
+  validates :basic_time, presence: true
+  validates :work_time, presence: true
+  
+  
   has_secure_password  # パスワードをハッシュ化する為のﾒｿｯﾄﾞ ややこしい 4.5参照 
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   # allow_nil: true ⇒ ユーザー編集の際、パスワードが空白でも更新できるようにする！！8.1.4

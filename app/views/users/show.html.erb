@@ -4,8 +4,11 @@
     <!--tr ⇒ 列 td ⇒ セル-->
     <tr> 
       <td>時間管理表</td>
-      <td>指定勤務時間</td>
-      <td>基本時間</td>
+      <!--下記使い方再考必要‼ 9.2、メモ参照しながら‼-->
+      <!--<td>指定勤務時間：< %= @user.work_time %></td> が👇に --> 
+      <td>指定勤務時間：<%= format_basic_info(@user.work_time) %></td>
+      <!--<td>基本時間：< %= @user.basic_time %></td> が👇に -->
+      <td>基本時間：<%= format_basic_info(@user.basic_time) %></td>
       <td>月初日</td>
     </tr>
 
