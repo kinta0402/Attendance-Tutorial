@@ -8,23 +8,41 @@
       <tr>
         <th><%= User.human_attribute_name :name %></th>
         <!--👆これは何をしてるのか？説明なし 8.4-->
+        <!--👇も追加 admin表示とそれ以外の場合 9.3.1 -->
+        <th class="center"><%= User.human_attribute_name :department %></th> <!-- 9.3.1 -->
+        <% if current_user.admin? %>
+          <th class="center"><%= User.human_attribute_name :basic_time %></th> <!-- 9.3.1 -->
+          <th class="center"><%= User.human_attribute_name :work_time %></th> <!-- 9.3.1 -->
+        <% end %>
         <th></th>
       </tr>
     </thead>
 
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.name, user %></td>
+        <!--<td>< %= link_to user.name, user %></td> が👇 ※adminの場合はリンク表示、それ以外は通常表示 9.3.1 -->
         <td>
+          <% if current_user.admin? %>
+            <%= link_to user.name, user %>
+          <% else %>
+            <%= user.name %>
+          <% end %>
+        </td>
+        <td class="center"><%= user.department.present? ? user.department : "未所属" %></td> <!-- 9.3.1 -->
+        <% if current_user.admin? %> <!-- 9.3.1 -->
+          <td class="center"><%= format_basic_info(user.basic_time) %></td>
+          <td class="center"><%= format_basic_info(user.work_time) %></td>
+        <% end %>
+        <td class="center"><!-- 9.3.1 -->
           <% if current_user.admin? && !current_user?(user) %>
           <!--👆!current_user?(user)の意味⇒管理者には削除ボタンを表示させないようにしている 8.5.2-->
           <!-- 管理者(current_user) &&(且つ)、 
                each do でそれぞれ表示しようとしてる(user) = current_user?(管理者？) 
                ⇒ true の場合ボタン表示しない (! 否定演算子で) 
                ⇒ false の場合ボタン表示する  (! 否定演算子で) -->
+            <%= link_to "基本情報編集", edit_basic_info_user_path(user), remote: true, class: "btn btn-success" %> <!-- 9.3.1 -->
             <%= link_to "削除", user, method: :delete,
-                data: { confirm: "削除してよろしいですか？" },
-                class: "btn btn-danger" %>
+                data: { confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %>
           <% end %>
         </td>
       </tr>
@@ -32,3 +50,6 @@
   </table>
   <%= will_paginate %>
 </div>
+
+<!-- モーダルウィンドウ表示 --> <!-- 9.3.1 -->
+<div id="edit-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
