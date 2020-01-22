@@ -2,6 +2,10 @@ class User < ApplicationRecord  # Userクラスが定義されていること
                                 # UserクラスはApplicationRecordクラスを継承していること
                                 # この継承の働きによりActive Recordのメソッドが使えると
                                 
+  # User⇒Attndance=1対多(Attendanceモデルを紐づけ)  10.1.1
+  has_many :attendances, dependent: :destroy
+  
+                                
   # 「remember_token」という仮想の属性を作成します。7.1.2参照
   attr_accessor :remember_token
   

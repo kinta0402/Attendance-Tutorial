@@ -1,4 +1,8 @@
 class SessionsController < ApplicationController
+  
+  # Session は モデルを作成せず。 1対1(userと比較)
+  # Attendance は モデルを作成した。1対多(userと比較)
+  # この違いがよく分からん
 
   def new
   end
