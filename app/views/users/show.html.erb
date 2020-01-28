@@ -29,3 +29,34 @@
     </tr>
   </table>
 </div>
+
+<div>
+  <table class="table table-bordered table-condensed table-hover" id="table-attendances">
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>曜日</th>
+        <th>勤怠登録</th>
+        <th>出勤時間</th>
+        <th>退勤時間</th>
+        <th>在社時間</th>
+        <th>備考</th>
+      </tr>
+    </thead>
+
+    <tbody> 
+      <% (@first_day..@last_day).each do |day| %> <!-- 範囲オブジェクト 10.2-->
+        <tr> <!-- 行 -->
+          <td><%= l(day, format: :short) %></td> <!-- 日付表示を2020-01-01から 1/1 にしている 10.2  -->
+          <td><%= $days_of_the_week[day.wday] %></td> <!-- 配列のインデックス番号から、曜日を取得している 10.2 説明が少ない!!必要時、落ち着いて考えよう-->
+          <!--$days_of_the_week = グローバル変数 10.2 -->
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

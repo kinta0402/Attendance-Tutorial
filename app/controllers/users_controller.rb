@@ -17,6 +17,8 @@ class UsersController < ApplicationController
   def show
     # @user = User.find(params[:id]) ⇒ 他のアクションでも実行している為、before_action :set_user にまとめた。
     # debugger # ｲﾝｽﾀﾝｽ変数を定義した直後にこのﾒｿｯﾄﾞが実行されます。
+    @first_day = Date.current.beginning_of_month
+    @last_day = @first_day.end_of_month
   end
   
   def new
