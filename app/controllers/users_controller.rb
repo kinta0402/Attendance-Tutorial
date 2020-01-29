@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info]
+  before_action :set_one_month, only: :show # 10.3 親ｺﾝﾄﾛｰﾗｰであるapplication_controllerに記載
   
   def index
     # @users = User.all  ページネーション機能追加の為下記に変更
@@ -17,8 +18,6 @@ class UsersController < ApplicationController
   def show
     # @user = User.find(params[:id]) ⇒ 他のアクションでも実行している為、before_action :set_user にまとめた。
     # debugger # ｲﾝｽﾀﾝｽ変数を定義した直後にこのﾒｿｯﾄﾞが実行されます。
-    @first_day = Date.current.beginning_of_month
-    @last_day = @first_day.end_of_month
   end
   
   def new
