@@ -3,13 +3,15 @@
   <table class="table table-bordered table-condensed user-table">
     <!--tr ⇒ 列 td ⇒ セル-->
     <tr> 
-      <td>時間管理表</td>
+      <td>【<%= l(@first_day, format: :middle) %>】時間管理表</td>
+      <!--👆日付を現在の月表示にしている 10.4で出てきた 10.2見れば分かる-->
+      
       <!--下記使い方再考必要‼ 9.2、メモ参照しながら‼-->
       <!--<td>指定勤務時間：< %= @user.work_time %></td> が👇に --> 
       <td>指定勤務時間：<%= format_basic_info(@user.work_time) %></td>
       <!--<td>基本時間：< %= @user.basic_time %></td> が👇に -->
       <td>基本時間：<%= format_basic_info(@user.basic_time) %></td>
-      <td>月初日</td>
+      <td>月初日：<%= l(@first_day, format: :short) %></td>
     </tr>
 
     <tr>
@@ -25,9 +27,15 @@
       <!--</td>-->
       <td>名前：<%= @user.name %></td>
       <td>出勤日数</td>
-      <td>月末日</td>
+      <td>月末日：<%= l(@last_day, format: :short) %></td>
     </tr>
   </table>
+</div>
+
+<!--切替ボタン 10.4-->
+<div class="btn-users-show">
+  <%= link_to "⇦ 前月へ", user_path(date: @first_day.prev_month), class: "btn btn-info" %>
+  <%= link_to "次月へ ⇨", user_path(date: @first_day.next_month), class: "btn btn-info" %>
 </div>
 
 <div>

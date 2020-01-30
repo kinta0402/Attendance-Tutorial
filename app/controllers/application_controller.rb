@@ -10,11 +10,16 @@ class ApplicationController < ActionController::Base
   def set_one_month 
     @first_day = params[:date].nil? ? 
     Date.current.beginning_of_month : params[:date].to_date
+    # 👆? = 三項演算子 結果を戻り値として返す？ 10.4 検索要‼
+    
     @last_day = @first_day.end_of_month
     one_month = [*@first_day..@last_day] # 対象の月の日数を代入します。
     # ユーザーに紐付く一ヶ月分のレコードを検索し取得します。
     @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
-
+    # ここの@userはshowアクションのインスタンス変数にて定義 詳細⇒10.3
+    # @user.attendanes ⇒ UserモデルとAttendanceモデルは1対多の関係の為複数形 ⇒ここのattendancesはモデルを指す
+    # .order ⇒ 取得したデータを昇順に並び変える
+    
     unless one_month.count == @attendances.count # それぞれの件数（日数）が一致するか評価します。
       ActiveRecord::Base.transaction do # トランザクションを開始します。
         # 繰り返し処理により、1ヶ月分の勤怠データを生成します。
