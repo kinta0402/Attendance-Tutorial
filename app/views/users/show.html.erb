@@ -64,8 +64,13 @@
           <!--$days_of_the_week = グローバル変数 10.2 -->
           <!--10.3により👇に-->
           <td><%= $days_of_the_week[day.worked_on.wday] %></td>
-          <td></td>
-          <td></td>
+          <td>
+            <!--実際の日付(パソコンの)と、繰り返し処理中の日付が一致する場合で、且つstarted_atがnilの場合=ボタン表示-->
+            <% if (Date.current == day.worked_on) && day.started_at.nil? %>
+              <%= link_to "出勤登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
+            <% end %> 
+          </td>
+          <td><%= l(day.started_at, format: :time) if day.started_at.present? %></td>
           <td></td>
           <td></td>
           <td></td>

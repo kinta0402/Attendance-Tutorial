@@ -13,10 +13,11 @@ Rails.application.routes.draw do
   
   # resources :users がﾓｰﾀﾞﾙｳｨﾝﾄﾞｳの為👇に変更 9.3
   
-    resources :users do
+  resources :users do
     member do
       get 'edit_basic_info'
       patch 'update_basic_info'
     end
+    resources :attendances, only: :update # usersリソースのブロック内に記述している 10.5
   end
 end
