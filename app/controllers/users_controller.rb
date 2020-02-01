@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   def show
     # @user = User.find(params[:id]) ⇒ 他のアクションでも実行している為、before_action :set_user にまとめた。
     # debugger # ｲﾝｽﾀﾝｽ変数を定義した直後にこのﾒｿｯﾄﾞが実行されます。
+   
     # 👇出勤日数の合計(where.notメソッド) ⇒ 「1ヶ月分の勤怠データの中で、出勤時間が何も無い状態では無いものの数を代入」
     # 10.7
     @worked_sum = @attendances.where.not(started_at: nil).count

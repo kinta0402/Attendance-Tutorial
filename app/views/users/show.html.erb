@@ -82,12 +82,34 @@
           <td>
             <!--在社時間表示 10.8-->
             <% if day.started_at.present? && day.finished_at.present? %>
-              <%= working_times(day.started_at, day.finished_at) %>
+              <!--< %= working_times(day.started_at, day.finished_at) %>-->
+            <!--10.9.2より👇へ-->
+              <%= str_times = working_times(day.started_at, day.finished_at) %>
+              <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
+              <!--↑理解していない↑ 変数を定義して(@total_working_times) すぐにその変数を使用して計算している-->
             <% end %>
           </td>
           <td></td>
         </tr>
       <% end %>
     </tbody>
+    
+    <tfoot>
+      <!--rowspan:縦結合、colspan：横結合-->
+      <tr>
+        <td colspan="2">累計日数</td>
+        <td colspan="2">総合勤務時間</td>
+        <td colspan="2">累計在社時間</td>
+        <td rowspan="2"></td>
+      </tr>
+      <tr>
+        <!--累計日数-->
+        <td colspan="2"><%= @attendances.count %></td>
+        <!--総合勤務日数(指定勤務時間 × 出勤日数)-->
+        <td colspan="2"><%= format_basic_info(@user.work_time).to_f * @worked_sum %></td>
+        <!--累計在社時間-->
+        <td colspan="2"><%= format("%.2f", @total_working_times.to_f) %></td>
+      </tr>
+    </tfoot>    
   </table>
 </div>
