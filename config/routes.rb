@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     member do
       get 'edit_basic_info'
       patch 'update_basic_info'
+      get 'attendances/edit_one_month'
     end
     resources :attendances, only: :update # usersリソースのブロック内に記述している 10.5
   end

@@ -91,36 +91,41 @@ class UsersController < ApplicationController
     def basic_info_params # 9.3.2 ﾓｰﾀﾞﾙ表示
       params.require(:user).permit(:department, :basic_time, :work_time)
     end
-
-    # beforeフィルター
-    
-    
-    # paramsハッシュからユーザーを取得します。
-    def set_user
-      @user = User.find(params[:id])
-    end
-    
-    # ログイン済みのユーザーか確認します。
-    def logged_in_user
-      unless logged_in?
-        store_location   
-      # フレンドリーフォワーディング機能 8.3参照 ※ログインしないで、URL直打ちでeditページ等に
-      # リクエストした際、そのurlをsessionに保存 (session_helperに定義)
-        flash[:danger] = "ログインしてください。"
-        redirect_to login_url
-      end
-    end
-    
-    # アクセスしたユーザーが現在ログインしているユーザーか確認します。
-    def correct_user
-      @user = User.find(params[:id])
-    # redirect_to(root_url) unless @user == current_user
-    # 上記をより読み手に分かりやすくする為、session_helperにcurrent_user? を定義 8.2.2参照
-      redirect_to(root_url) unless current_user?(@user) 
-    end
-    
-    # システム管理権限所有かどうか判定します。8.5.2
-    def admin_user
-      redirect_to root_url unless current_user.admin?
-    end
 end
+
+
+# 👇以下は全て attendanceコントローラーでも使う為、親コントローラーであるapplication_controllerへ引越し 11.1.3
+  
+  
+    # # beforeフィルター
+    
+    
+    # # paramsハッシュからユーザーを取得します。
+    # def set_user
+    #   @user = User.find(params[:id])
+    # end
+    
+    # # ログイン済みのユーザーか確認します。
+    # def logged_in_user
+    #   unless logged_in?
+    #     store_location   
+    #   # フレンドリーフォワーディング機能 8.3参照 ※ログインしないで、URL直打ちでeditページ等に
+    #   # リクエストした際、そのurlをsessionに保存 (session_helperに定義)
+    #     flash[:danger] = "ログインしてください。"
+    #     redirect_to login_url
+    #   end
+    # end
+    
+    # # アクセスしたユーザーが現在ログインしているユーザーか確認します。
+    # def correct_user
+    #   @user = User.find(params[:id])
+    # # redirect_to(root_url) unless @user == current_user
+    # # 上記をより読み手に分かりやすくする為、session_helperにcurrent_user? を定義 8.2.2参照
+    #   redirect_to(root_url) unless current_user?(@user) 
+    # end
+    
+    # # システム管理権限所有かどうか判定します。8.5.2
+    # def admin_user
+    #   redirect_to root_url unless current_user.admin?
+    # end
+

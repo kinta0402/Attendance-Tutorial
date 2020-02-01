@@ -1,4 +1,9 @@
 class AttendancesController < ApplicationController
+  before_action :set_user, only: :edit_one_month
+  before_action :logged_in_user, only: [:update, :edit_one_month]
+  before_action :set_one_month, only: :edit_one_month
+
+  
   UPDATE_ERROR_MSG = "勤怠登録に失敗しました。やり直してください。" # 定数(全て大文字)
 
   def update #10.5.3
@@ -19,5 +24,8 @@ class AttendancesController < ApplicationController
       end
     end
     redirect_to @user
+  end
+  
+  def edit_one_month
   end
 end

@@ -35,6 +35,8 @@
 <!--切替ボタン 10.4-->
 <div class="btn-users-show">
   <%= link_to "⇦ 前月へ", user_path(date: @first_day.prev_month), class: "btn btn-info" %>
+  <%= link_to "1ヶ月の勤怠編集へ", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-success" %>
+                                                                        <!--↑paramsﾊｯｼｭにdateｷｰとして、@first_dayを渡している(どの月を表示するか判断できる) 11.1.3-->
   <%= link_to "次月へ ⇨", user_path(date: @first_day.next_month), class: "btn btn-info" %>
 </div>
 
