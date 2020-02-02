@@ -22,8 +22,14 @@
             <tr>
               <td><%= l(day.worked_on, format: :short) %></td> <!-- 日付 -->
               <td><%= $days_of_the_week[day.worked_on.wday] %></td> <!-- 曜日 -->
-              <td><%= attendance.time_field :started_at, class: "form-control" %></td> <!--11.1.6 -->
-              <td><%= attendance.time_field :finished_at, class: "form-control" %></td> <!--11.1.6 -->
+              <% if !current_user.admin? && (Date.current < day.worked_on) %> <!--11.3.3-->
+                <!--管理者ではない(一般ユーザーの場合) 且つ 繰り返し表示している日付が明日以降の入力欄をreadonlyにしている 11.3.3-->
+                <td><%= attendance.time_field :started_at, readonly: true, class: "form-control" %></td> <!--11.1.6 -->
+                <td><%= attendance.time_field :finished_at, readonly: true, class: "form-control" %></td> <!--11.1.6 -->
+              <% else %>
+                <td><%= attendance.time_field :started_at, class: "form-control" %></td> <!--11.1.6 -->
+                <td><%= attendance.time_field :finished_at, class: "form-control" %></td>
+              <% end %>
               <td>
                 <% if day.started_at.present? && day.finished_at.present? %> <!--11.1.6 -->
                   <%= working_times(day.started_at, day.finished_at) %>
